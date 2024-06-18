@@ -1,0 +1,15 @@
+{
+  "name": "esp32_animator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MrInka",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "pngjs": "^7.0.0"
+  }
+}
