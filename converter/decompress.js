@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// Function to decompress RLE encoded data
-function decompressImageData(compressedData, totalPixels) {
+// Decompress RLE encoded data
+const decompressImageData = (compressedData, totalPixels) => {
     let decompressedFrames = [];
     let frameIndex = 0;
 
@@ -32,7 +32,6 @@ function decompressImageData(compressedData, totalPixels) {
     return decompressedFrames;
 }
 
-// Read the compressed image data from image_compressed.h
 const inputFilePath = path.join(__dirname, 'output', 'image_compressed.h');
 const outputFilePath = path.join(__dirname, 'output', 'image_decompressed.h');
 
@@ -42,7 +41,6 @@ fs.readFile(inputFilePath, 'utf8', (err, data) => {
         return;
     }
 
-    // Extract the compressed data
     const regex = /const unsigned short picture\[\]\[\d+\] PROGMEM=\{([\s\S]+?)\};/;
     const match = regex.exec(data);
 
@@ -63,10 +61,8 @@ fs.readFile(inputFilePath, 'utf8', (err, data) => {
     const aniHeight = aniHeightMatch ? parseInt(aniHeightMatch[1], 10) : 1;
     const totalPixels = aniWidth * aniHeight;
 
-    // Decompress the data
     const decompressedFrames = decompressImageData(compressedData, totalPixels);
 
-    // Prepare the output data
     let output = `int framesNumber=${framesNumber}; int aniWidth=${aniWidth}; int aniHeight=${aniHeight};\n`;
     output += `const unsigned short picture[][${totalPixels}] PROGMEM={\n`;
 
@@ -77,7 +73,7 @@ fs.readFile(inputFilePath, 'utf8', (err, data) => {
                 output += `0x${decompressedFrames[frame][i].toString(16).padStart(4, '0')}`;
             } else {
                 console.error(`Value at index ${i} in frame ${frame} is undefined.`);
-                output += '0x0000'; // or handle this case as appropriate
+                output += '0x0000'; 
             }
             if (i < totalPixels - 1) output += ', ';
             if ((i + 1) % 10 === 0 && i < totalPixels - 1) output += '\n  ';
@@ -88,7 +84,6 @@ fs.readFile(inputFilePath, 'utf8', (err, data) => {
 
     output += '};';
 
-    // Write the decompressed data to image_decompressed.h
     fs.writeFile(outputFilePath, output, (err) => {
         if (err) {
             console.error('Error writing file:', err);
