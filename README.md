@@ -1,7 +1,8 @@
 # ESP32 Animation Compressor 🎨
 
-Converts PNG image sequences into compressed data for displaying animations on ESP32 microcontrollers with TFT displays.
+Converts PNG image sequences into heavily compressed data for displaying animations on ESP32 microcontrollers with TFT / OLED / AMOLED displays.
 
-## Overview
+- Uses RGB565 color encoding
+- RLE (Run-Length Encoding) compression
 
-The ESP32 Animation Compressor uses RGB565 color encoding and RLE (Run-Length Encoding) compression to optimize storage and rendering performance on embedded systems.
+The provided player example displays animations stored as compressed RGB565 and RLE encoded data
