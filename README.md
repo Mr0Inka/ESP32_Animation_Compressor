@@ -5,4 +5,6 @@ Converts PNG image sequences into heavily compressed data for displaying animati
 - Uses RGB565 color encoding
 - RLE (Run-Length Encoding) compression
 
+The 9 example frames are compressed from 9384kb down to 302kb (~97%). This obviously only works well for UI-like screens with larger single-color areas.
+
 The provided player example displays animations stored as compressed RGB565 and RLE encoded data
