@@ -3,15 +3,15 @@ const path = require('path');
 const { PNG } = require('pngjs');
 
 // Convert RGB to RGB565
-function toRGB565(r, g, b) {
+const toRGB565 = (r, g, b) => {
     const r5 = (r >> 3) & 0x1F;
     const g6 = (g >> 2) & 0x3F;
     const b5 = (b >> 3) & 0x1F;
     return (r5 << 11) | (g6 << 5) | b5;
 }
 
-// Compress the data using RLE
-function compressImageData(imageData) {
+// Compress
+const compressImageData = (imageData) => {
     const compressedData = [];
     let i = 0;
 
@@ -36,7 +36,7 @@ function compressImageData(imageData) {
 }
 
 // Read and convert PNG files in the input folder
-function convertImagesToRGB565() {
+const convertImagesToRGB565 = () => {
     const inputDir = './frames/';
     const outputFileCompressed = './output/image_compressed.h';
     const outputFileUncompressed = './output/image_uncompressed.h';
